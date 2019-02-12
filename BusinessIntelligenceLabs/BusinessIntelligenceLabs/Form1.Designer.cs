@@ -28,34 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.btnLookup = new System.Windows.Forms.Button();
+            this.lstBox = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
-            // label1
+            // btnLookup
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(365, 212);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(106, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "This is an experiment";
+            this.btnLookup.Location = new System.Drawing.Point(390, 229);
+            this.btnLookup.Name = "btnLookup";
+            this.btnLookup.Size = new System.Drawing.Size(75, 23);
+            this.btnLookup.TabIndex = 0;
+            this.btnLookup.Text = "button1";
+            this.btnLookup.UseVisualStyleBackColor = true;
+            this.btnLookup.Click += new System.EventHandler(this.btnLookup_Click);
+            // 
+            // lstBox
+            // 
+            this.lstBox.FormattingEnabled = true;
+            this.lstBox.Location = new System.Drawing.Point(255, 89);
+            this.lstBox.Name = "lstBox";
+            this.lstBox.Size = new System.Drawing.Size(210, 134);
+            this.lstBox.TabIndex = 1;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lstBox);
+            this.Controls.Add(this.btnLookup);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnLookup;
+        private System.Windows.Forms.ListBox lstBox;
     }
 }
 
