@@ -20,9 +20,40 @@ namespace BusinessIntelligenceLabs
             InitializeComponent();
         }
 
+        private int GetDateId(string date)
+        {
+            string[] arrayDate = date.Split('/');
+
+            int year = Convert.ToInt32(arrayDate[2]);
+            int month = Convert.ToInt32(arrayDate[1]);
+            int day = Convert.ToInt32(arrayDate[0]);
+
+
+            string dataConnect = Properties.Settings.Default.DestinationDatabase_1_ConnectionString;
+
+            using (SqlConnection connect = new SqlConnection(dataConnect))
+            {
+                connect.Open();
+
+                SqlCommand command = new SqlCommand("SELECT id FROM Time WHERE date = @date", connect);
+                command.Parameters.Add(new SqlParameter("date", date));
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+
+                    if (reader.HasRows)
+                    {
+                        return Convert.ToInt32(reader["id"]);
+                    }
+                }
+                return 0;
+            }
+        }
+
         private void btnLookup_Click(object sender, EventArgs e)
         {
             List<string> dates = new List<string>();
+            lstBox.DataSource = null;
             lstBox.Items.Clear();
 
             string connectionString = Properties.Settings.Default.Data_set_1_1_ConnectionString;
@@ -68,7 +99,6 @@ namespace BusinessIntelligenceLabs
             int day = Convert.ToInt32(arrayDate[0]);
 
             DateTime myDate = new DateTime(year, month, day);
-            Console.WriteLine("Day of Week: ", myDate.DayOfWeek);
 
             string dayOfWeek = myDate.DayOfWeek.ToString();
             int dayOfYear = myDate.DayOfYear;
@@ -94,7 +124,7 @@ namespace BusinessIntelligenceLabs
                 connect.Open();
 
                 SqlCommand command = new SqlCommand("SELECT id FROM Time WHERE date = @date", connect);
-                command.Parameters.Add(new SqlParameter("date", date));
+                command.Parameters.Add(new SqlParameter("@date", date));
 
                 Boolean exists = false;
 
@@ -110,18 +140,19 @@ namespace BusinessIntelligenceLabs
                 if (exists == false)
                 {
                     SqlCommand insertCommand = new SqlCommand("INSERT INTO Time" +
-                        "(dayName, dayNumber, monthName, monthNumber, weekNumber, year, weekend, date, dayOfYear)" +
+                        "(dayName, dayNumber, monthName, monthNumber, weekNumber, year, weekend, date, dayOfYear) VALUES " +
                         "(@dayName, @dayNumber, @monthName, @monthNumber, @weekNumber, @year, @weekend, @date, @dayOfYear)", connect);
 
-                    insertCommand.Parameters.Add(new SqlParameter("dayName", dayName));
-                    insertCommand.Parameters.Add(new SqlParameter("dayNumber", dayNumber));
-                    insertCommand.Parameters.Add(new SqlParameter("monthName", monthName));
-                    insertCommand.Parameters.Add(new SqlParameter("monthNumber", monthNumber));
-                    insertCommand.Parameters.Add(new SqlParameter("weekNumber", weekNumber));
-                    insertCommand.Parameters.Add(new SqlParameter("year", year));
-                    insertCommand.Parameters.Add(new SqlParameter("weekend", weekend));
-                    insertCommand.Parameters.Add(new SqlParameter("date", date));
-                    insertCommand.Parameters.Add(new SqlParameter("dayOfYear", dayOfYear));
+                    insertCommand.Parameters.Add(new SqlParameter("@dayName", dayName));
+                    insertCommand.Parameters.Add(new SqlParameter("@dayNumber", dayNumber));
+                    insertCommand.Parameters.Add(new SqlParameter("@monthName", monthName));
+                    insertCommand.Parameters.Add(new SqlParameter("@monthNumber", monthNumber));
+                    insertCommand.Parameters.Add(new SqlParameter("@weekNumber", weekNumber));
+                    insertCommand.Parameters.Add(new SqlParameter("@year", year));
+                    insertCommand.Parameters.Add(new SqlParameter("@weekend", weekend));
+                    insertCommand.Parameters.Add(new SqlParameter("@date", date));
+                    insertCommand.Parameters.Add(new SqlParameter("@dayOfYear", dayOfYear));
+                    Console.WriteLine(dayNumber + "/" +  monthNumber + "/" + year);
 
                     int recordsAffected = insertCommand.ExecuteNonQuery();
                     Console.WriteLine("Records affected : " + recordsAffected);
