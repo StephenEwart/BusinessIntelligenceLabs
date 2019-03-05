@@ -58,7 +58,7 @@
             this.Controls.Add(this.lstBox);
             this.Controls.Add(this.btnLookup);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = " ";
             this.ResumeLayout(false);
 
         }
