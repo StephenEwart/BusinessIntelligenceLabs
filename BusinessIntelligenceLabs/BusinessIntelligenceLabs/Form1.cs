@@ -163,5 +163,55 @@ namespace BusinessIntelligenceLabs
             }
         }
 
+        private void btnGetDatesFromSource_Click(object sender, EventArgs e)
+        {
+            List<string> destinationDates = new List<string>();
+
+            lstGetDatesFromSource.Items.Clear();
+
+            string connectionDestination = Properties.Settings.Default.DestinationDatabase_1_ConnectionString;
+
+            using (SqlConnection dataConnect = new SqlConnection(connectionDestination))
+            {
+                dataConnect.Open();
+
+                SqlCommand command = new SqlCommand("SELECT id, dayName, dayNumber, monthName, monthNumber, weekNumber, year, weekend, date, dayOfYear FROM Time", dataConnect);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            string id = reader["id"].ToString();
+                            string dayName = reader["dayName"].ToString();
+                            string dayNumber = reader["dayNumber"].ToString();
+                            string monthName = reader["monthName"].ToString();
+                            string monthNumber = reader["monthNumber"].ToString();
+                            string weekNumber = reader["weekNumber"].ToString();
+                            string year = reader["year"].ToString();
+                            string weekend = reader["weekend"].ToString();
+                            string date = reader["date"].ToString();
+                            string dayOfYear = reader["dayOfYear"].ToString();
+
+                            string text;
+
+                            text = "Id = " + id + ", day name = " + dayName + ", day number = " + dayNumber + ", month name = " + monthName +
+                                ", month number = " + monthNumber + ", week number = " + weekNumber + ", year = " + year + ", weekend = "
+                                + weekend + ", date = " + date + ", day name = " + dayName;
+
+                            destinationDates.Add(text);
+                        }
+                    }
+                    else
+                    {
+                        destinationDates.Add("No data is present in Time dimension"); 
+                    }
+                }
+
+            }
+
+            lstGetDatesFromSource.DataSource = destinationDates;
+        }
     }
 }
