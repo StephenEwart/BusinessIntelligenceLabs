@@ -29,7 +29,7 @@ namespace BusinessIntelligenceLabs
             int day = Convert.ToInt32(arrayDate[0]);
 
 
-            string dataConnect = Properties.Settings.Default.DestinationDatabase_1_ConnectionString;
+            string dataConnect = Properties.Settings.Default.DestinationDatabase_1_ConnectionString1;
 
             using (SqlConnection connect = new SqlConnection(dataConnect))
             {
@@ -117,7 +117,7 @@ namespace BusinessIntelligenceLabs
 
         private void InsertTimeDimension(string date, string dayName, int dayNumber, string monthName, int monthNumber, int weekNumber, int year, bool weekend, int dayOfYear)
         {
-            string dataConnect = Properties.Settings.Default.DestinationDatabase_1_ConnectionString;
+            string dataConnect = Properties.Settings.Default.DestinationDatabase_1_ConnectionString1;
 
             using (SqlConnection connect = new SqlConnection(dataConnect))
             {
@@ -167,9 +167,10 @@ namespace BusinessIntelligenceLabs
         {
             List<string> destinationDates = new List<string>();
 
+            lstGetDatesFromSource.DataSource = null;
             lstGetDatesFromSource.Items.Clear();
 
-            string connectionDestination = Properties.Settings.Default.DestinationDatabase_1_ConnectionString;
+            string connectionDestination = Properties.Settings.Default.DestinationDatabase_1_ConnectionString1;
 
             using (SqlConnection dataConnect = new SqlConnection(connectionDestination))
             {

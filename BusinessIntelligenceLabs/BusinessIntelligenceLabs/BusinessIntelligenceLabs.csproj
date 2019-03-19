@@ -11,6 +11,7 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -23,7 +24,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -73,10 +73,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>_Data_set_1_1_DataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="_Data_set_1_1_DataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_Data_set_1_1_DataSet1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="_DestinationDatabase_1_DataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>_DestinationDatabase_1_DataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="_DestinationDatabase_1_DataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_DestinationDatabase_1_DataSet1.xsd</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -110,6 +120,17 @@
     <None Include="_Data_set_1_1_DataSet.xss">
       <DependentUpon>_Data_set_1_1_DataSet.xsd</DependentUpon>
     </None>
+    <None Include="_Data_set_1_1_DataSet1.xsc">
+      <DependentUpon>_Data_set_1_1_DataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="_Data_set_1_1_DataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>_Data_set_1_1_DataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="_Data_set_1_1_DataSet1.xss">
+      <DependentUpon>_Data_set_1_1_DataSet1.xsd</DependentUpon>
+    </None>
     <None Include="_DestinationDatabase_1_DataSet.xsc">
       <DependentUpon>_DestinationDatabase_1_DataSet.xsd</DependentUpon>
     </None>
@@ -121,11 +142,29 @@
     <None Include="_DestinationDatabase_1_DataSet.xss">
       <DependentUpon>_DestinationDatabase_1_DataSet.xsd</DependentUpon>
     </None>
+    <None Include="_DestinationDatabase_1_DataSet1.xsc">
+      <DependentUpon>_DestinationDatabase_1_DataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="_DestinationDatabase_1_DataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>_DestinationDatabase_1_DataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="_DestinationDatabase_1_DataSet1.xss">
+      <DependentUpon>_DestinationDatabase_1_DataSet1.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Database\DestinationDatabase%281%29.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Database\DestinationDatabase%281%29_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>DestinationDatabase%281%29.mdf</DependentUpon>
+    </Content>
     <Content Include="External Files\Data set 1%281%29.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
