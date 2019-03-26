@@ -214,5 +214,48 @@ namespace BusinessIntelligenceLabs
 
             lstGetDatesFromSource.DataSource = destinationDates;
         }
+
+        private void btnDisplayGraphs_Click(object sender, EventArgs e)
+        {
+            List<string> dateList = new List<string>(new string[] { "03/01/2014", "04/01/2014", "05/01/2014", "06/01/2014", "07/01/2014" });
+
+            Dictionary<string, int> saleCount = new Dictionary<string, int>();
+
+            string connectionString = Properties.Settings.Default.DestinationDatabase_1_ConnectionString1;
+
+            foreach(string date in dateList)
+            {
+                using (SqlConnection connect = new SqlConnection(connectionString))
+                {
+                    connect.Open();
+                    SqlCommand command = new SqlCommand("SELECT COUNT(*) As SalesNumber FROM FactTable JOIN Time " + "ON FactTable.timeId = Time.Id WHERE Time.date = @date; ", connect);
+                        command.Parameters.Add(new SqlParameter("date", date));
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                saleCount.Add(date, int.Parse(reader["SalesNumber"].ToString()));
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            chart1.DataSource = saleCount;
+            chart1.Series[0].XValueMember = "Key";
+            chart1.Series[0].YValueMembers = "Value";
+            chart1.DataBind();
+
+            chart2.DataSource = saleCount;
+            chart2.Series[0].XValueMember = "Key";
+            chart2.Series[0].YValueMembers = "Value";
+            chart2.DataBind();
+
+
+        }
     }
 }
